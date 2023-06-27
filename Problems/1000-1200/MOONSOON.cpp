@@ -12,7 +12,7 @@ int main(){
         sort(a,a+n);
         sort(b,b+m);
         int ans=0;
-        for(int i=0; i<min(n,m); i++) ans+=min((1ll*a[i]),(1ll*b[i]*h));
+        for(int i=0; i<min(n,m); i++) ans+=min(1ll*a[i],1ll*b[i]*h);
         cout<<ans<<endl;
     }
 }
