@@ -1,31 +1,49 @@
-#include <bits/stdc++.h>
-using namespace std;
-int main(){
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
     int t;
-    cin>>t;
-    while(t--){
-        int n,k;
-        cin>>n>>k;
-        long long arr[n];
-        for(int i=0; i<n; i++) cin>>arr[i];
-        for(int i=0; i<n-k; i++){
-            int j=i+k;
-            int current=INT_MAX;
-            int index;
-            while(j<n){
-                if(current>arr[j]){
-                    current=arr[j];
-                    index=j;
-                }
-                j++;
-            }
-            if(arr[i]>arr[index]){
-                int temp=arr[i];
-                arr[i]=current;
-                arr[index]=temp;
+    std::cin >> t;
+
+    while (t--) {
+        int n, k;
+        std::cin >> n >> k;
+        std::vector<int> a(n);
+        for (int i = 0; i < n; i++) {
+            std::cin >> a[i];
+        }
+
+        std::vector<int> moved, unmoved;
+        for (int i = 0; i < n; i++) {
+            if (i + k <= n - 1 || i >= k) {
+                moved.push_back(a[i]);
+            } else {
+                unmoved.push_back(a[i]);
             }
         }
-        for(int i=0; i<n; i++) cout<<arr[i]<<" ";
-        cout<<endl;
+
+        std::sort(moved.begin(), moved.end());
+
+        if (unmoved.empty()) {
+            for (int i = 0; i < moved.size(); i++) {
+                std::cout << moved[i] << " ";
+            }
+        } else {
+            int k = moved.size();
+            std::vector<int> ans;
+            ans.reserve(k + unmoved.size());
+            ans.insert(ans.end(), moved.begin(), moved.begin() + k / 2);
+            ans.insert(ans.end(), unmoved.begin(), unmoved.end());
+            ans.insert(ans.end(), moved.begin() + k / 2, moved.end());
+
+            for (int i = 0; i < ans.size(); i++) {
+                std::cout << ans[i] << " ";
+            }
+        }
+
+        std::cout << std::endl;
     }
+
+    return 0;
 }
